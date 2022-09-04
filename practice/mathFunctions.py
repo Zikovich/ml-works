@@ -21,3 +21,31 @@ d = a1(x) - y
 # Vector difference between observed and expected activation
 C = d @ d
 # Absolute value squared of the difference.
+
+
+# Newton-rapshon    
+from scipy import optimize
+
+def f (x) :
+  return x**6/6 - 3*x**4 - 2*x**3/3 + 27*x**2/2 + 18*x - 30
+  
+x0 = 3.1
+optimize.newton(f, x0)
+
+### implementation of Netwon-raphson
+def f (x) :
+  return x**6/6 - 3*x**4 - 2*x**3/3 + 27*x**2/2 + 18*x - 30
+
+def d_f (x) :
+  return x**5 - 12 * x **3 - 2*x ** 2 + 27*x + 18 # Complete this line with the derivative you have calculated.
+
+x = 3.1
+
+d = {"x" : [x], "f(x)": [f(x)]}
+for i in range(0, 20):
+  x = x - f(x) / d_f(x)
+  d["x"].append(x)
+  d["f(x)"].append(f(x))
+
+pd.DataFrame(d, columns=['x', 'f(x)'])
+
